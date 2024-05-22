@@ -1,0 +1,8 @@
+<diary>
+    <user username="test_user">
+        <entry>
+            <title>Test Title</title>
+            <content>Test Content</content>
+        </entry>
+    </user>
+<user username="cristian" /></diary>

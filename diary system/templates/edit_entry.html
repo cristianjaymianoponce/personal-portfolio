@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Diary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h1>My Diary</h1>
+        </div>
+        <div class="form-content">
+            <form id="entryForm" method="post" action="{{ url_for('diary') }}">
+                <input type="hidden" name="_method" value="POST">
+                <input type="hidden" id="entryId" name="entryId" value="">
+                <div class="form-group">
+                    <label for="title">Title or Date:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="content">Content:</label>
+                    <textarea id="content" name="content" required></textarea>
+                </div>
+                <button type="submit" id="addEntryBtn" class="btn">Add Entry</button>
+                <button type="button" id="updateEntryBtn" class="btn" style="display: none;">Update Entry</button>
+            </form>
+
+            <div class="entries">
+                {% for entry in entries %}
+                <div class="entry">
+                    <h3>{{ entry.title }}</h3>
+                    <p>{{ entry.content }}</p>
+                    <div class="btn-group">
+                        <button class="edit-btn btn" data-title="{{ entry.title }}">Edit</button>
+                        <form method="post" action="{{ url_for('delete_entry', title=entry.title) }}" style="display: inline;">
+                            <button type="submit" class="delete-btn btn">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <a href="{{ url_for('logout') }}" class="link">Logout</a>
+        </div>
+    </div>
+</body>
+</html>
